@@ -1,0 +1,3 @@
+/home/kracocks/Programmes/C-C++/SystemManager/cmake-build-debug/CMakeFiles/SystemManager.dir
+/home/kracocks/Programmes/C-C++/SystemManager/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/kracocks/Programmes/C-C++/SystemManager/cmake-build-debug/CMakeFiles/rebuild_cache.dir
