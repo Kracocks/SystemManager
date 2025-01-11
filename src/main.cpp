@@ -7,7 +7,7 @@ int main() {
     const std::string db_path = "passwords.sqlite";
     const std::string db_key = std::getenv("DB_KEY");
 
-    bd::Connector db = bd::Connector(db_path, db_key);
+    bd::Connector& db = bd::Connector::getInstance();
     if (db.getDB()) {
         std::cout << "ok" << std::endl;
     } else {

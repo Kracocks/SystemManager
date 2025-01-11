@@ -1,5 +1,4 @@
 /snap/clion/310/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/310/bin/ninja/linux/x64/ninja -G Ninja -S /home/kracocks/Programmes/C-C++/SystemManager -B /home/kracocks/Programmes/C-C++/SystemManager/cmake-build-debug
--- Found SQLite3: /usr/include (found version "3.45.1")
 -- Configuring done (0.0s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/kracocks/Programmes/C-C++/SystemManager/cmake-build-debug

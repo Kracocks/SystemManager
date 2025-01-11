@@ -4,6 +4,7 @@
 #include "Connector.h"
 
 namespace bd {
+    // Protected
     Connector::Connector(const std::string& dbFilePath, const std::string& key) {
         if (dbFilePath.empty()) {
             std::cerr << "Database path is empty\n";
@@ -33,11 +34,20 @@ namespace bd {
         }
     }
 
+    // Public
     Connector::~Connector() {
         if (m_bd) sqlite3_close(m_bd);
     }
 
     sqlite3 *Connector::getDB() const {
         return m_bd;
+    }
+
+    Connector *Connector::m_connector = nullptr;
+
+    Connector &Connector::getInstance() {
+        if (m_connector == nullptr)
+            m_connector = new Connector("passwords.sqlite", std::getenv("DB_KEY"));
+        return *m_connector;
     }
 } // bd

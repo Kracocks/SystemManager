@@ -5,14 +5,21 @@
 
 namespace bd {
 
-class Connector {
-    sqlite3 *m_bd{};
+    class Connector {
+    protected:
+        sqlite3 *m_bd{};
+        static Connector *m_connector;
 
-public:
-    Connector(const std::string &dbFilePath, const std::string &key);
-    ~Connector();
-    [[nodiscard]] sqlite3 *getDB() const;
-};
+        Connector(const std::string &dbFilePath, const std::string &key);
+
+    public:
+        Connector(Connector &other) = delete;
+        void operator=(const Connector &) = delete;
+
+        ~Connector();
+        static Connector &getInstance();
+        [[nodiscard]] sqlite3 *getDB() const;
+    };
 
 } // bd
 
