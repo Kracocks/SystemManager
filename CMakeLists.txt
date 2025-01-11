@@ -3,4 +3,6 @@ project(SystemManager)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(SystemManager src/main.cpp)
+add_executable(SystemManager src/main.cpp
+        src/model/Service.cpp
+        src/model/Service.h)
