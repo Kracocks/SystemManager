@@ -5,6 +5,7 @@
 #ifndef IDENTIFIANT_H
 #define IDENTIFIANT_H
 #include <string>
+#include <bits/stl_vector.h>
 
 namespace model {
 
@@ -26,6 +27,8 @@ namespace model {
         void setEmail(std::string &&email);
         void setPassword(const std::string &password);
         void setPassword(std::string &&password);
+
+        bool operator==(const Identifiant &other) const;
     };
 
 } // model

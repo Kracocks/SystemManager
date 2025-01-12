@@ -44,4 +44,8 @@ namespace model {
     void Identifiant::setPassword(std::string &&password) {
         m_password = std::move(password);
     }
+
+    bool Identifiant::operator==(const Identifiant &other) const {
+        return m_email == other.m_email && m_password == other.m_password;
+    }
 } // model
