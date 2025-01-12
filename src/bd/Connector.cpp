@@ -36,7 +36,14 @@ namespace bd {
 
     // Public
     Connector::~Connector() {
-        if (m_bd) sqlite3_close(m_bd);
+        if (m_bd) {
+            sqlite3_close(m_bd);
+            m_bd = nullptr;
+        }
+        if (m_connector) {
+            delete m_connector;
+            m_connector = nullptr;
+        }
     }
 
     sqlite3 *Connector::getDB() const {
