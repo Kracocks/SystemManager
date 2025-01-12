@@ -8,12 +8,14 @@
 #include <vector>
 
 #include "Identifiant.h"
+#include "TokenGroup.h"
 
 namespace model {
 
     class Service {
         std::string m_name;
         std::vector<Identifiant> m_identifiants;
+        std::vector<TokenGroup> m_tokenGroups;
 
     public:
         Service() = delete;
@@ -22,6 +24,7 @@ namespace model {
 
         [[nodiscard]] std::string getName() const;
         [[nodiscard]] std::vector<Identifiant> getIdentifiants() const;
+        [[nodiscard]] std::vector<TokenGroup> getTokenGroups() const;
 
         void setName(const std::string &name);
         void setName(std::string &&name);
@@ -30,8 +33,12 @@ namespace model {
         void addIdentifiant(Identifiant &&identifiant);
         void removeIdentifiant(const Identifiant &identifiant);
         void removeIdentifiant(Identifiant &&identifiant);
-    };
 
+        void addTokenGroup(const TokenGroup &tokenGroup);
+        void addTokenGroup(TokenGroup &&tokenGroup);
+        void removeTokenGroup(const TokenGroup &tokenGroup);
+        void removeTokenGroup(TokenGroup &&tokenGroup);
+    };
 } // model
 
 #endif //SERVICE_H

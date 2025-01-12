@@ -67,6 +67,18 @@ build CMakeFiles/SystemManager.dir/src/model/Identifiant.cpp.o: CXX_COMPILER__Sy
   OBJECT_DIR = CMakeFiles/SystemManager.dir
   OBJECT_FILE_DIR = CMakeFiles/SystemManager.dir/src/model
 
+build CMakeFiles/SystemManager.dir/src/model/TokenGroup.cpp.o: CXX_COMPILER__SystemManager_unscanned_Debug /home/kracocks/Programmes/C-C++/SystemManager/src/model/TokenGroup.cpp || cmake_object_order_depends_target_SystemManager
+  DEP_FILE = CMakeFiles/SystemManager.dir/src/model/TokenGroup.cpp.o.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/SystemManager.dir
+  OBJECT_FILE_DIR = CMakeFiles/SystemManager.dir/src/model
+
+build CMakeFiles/SystemManager.dir/src/model/Token.cpp.o: CXX_COMPILER__SystemManager_unscanned_Debug /home/kracocks/Programmes/C-C++/SystemManager/src/model/Token.cpp || cmake_object_order_depends_target_SystemManager
+  DEP_FILE = CMakeFiles/SystemManager.dir/src/model/Token.cpp.o.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/SystemManager.dir
+  OBJECT_FILE_DIR = CMakeFiles/SystemManager.dir/src/model
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target SystemManager
@@ -75,7 +87,7 @@ build CMakeFiles/SystemManager.dir/src/model/Identifiant.cpp.o: CXX_COMPILER__Sy
 #############################################
 # Link the executable SystemManager
 
-build SystemManager: CXX_EXECUTABLE_LINKER__SystemManager_Debug CMakeFiles/SystemManager.dir/src/main.cpp.o CMakeFiles/SystemManager.dir/src/model/Service.cpp.o CMakeFiles/SystemManager.dir/src/model/Identifiant.cpp.o
+build SystemManager: CXX_EXECUTABLE_LINKER__SystemManager_Debug CMakeFiles/SystemManager.dir/src/main.cpp.o CMakeFiles/SystemManager.dir/src/model/Service.cpp.o CMakeFiles/SystemManager.dir/src/model/Identifiant.cpp.o CMakeFiles/SystemManager.dir/src/model/TokenGroup.cpp.o CMakeFiles/SystemManager.dir/src/model/Token.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/SystemManager.dir
   POST_BUILD = :

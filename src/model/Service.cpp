@@ -19,6 +19,10 @@ namespace model {
         return m_identifiants;
     }
 
+    std::vector<TokenGroup> Service::getTokenGroups() const {
+        return m_tokenGroups;
+    }
+
     void Service::setName(const std::string &name) {
         m_name = name;
     }
@@ -47,6 +51,30 @@ namespace model {
         for (int i = 0; i < m_identifiants.size(); ++i) {
             if (m_identifiants.at(i) == identifiant) {
                 m_identifiants.erase(m_identifiants.begin() + i);
+            }
+        }
+    }
+
+    void Service::addTokenGroup(const TokenGroup &tokenGroup) {
+        m_tokenGroups.push_back(tokenGroup);
+    }
+
+    void Service::addTokenGroup(TokenGroup &&tokenGroup) {
+        m_tokenGroups.push_back(std::move(tokenGroup));
+    }
+
+    void Service::removeTokenGroup(const TokenGroup &tokenGroup) {
+        for (int i {0}; i < m_tokenGroups.size(); ++i) {
+            if (m_tokenGroups.at(i) == tokenGroup) {
+                m_tokenGroups.erase(m_tokenGroups.begin() + i);
+            }
+        }
+    }
+
+    void Service::removeTokenGroup(TokenGroup &&tokenGroup) {
+        for (int i {0}; i < m_tokenGroups.size(); ++i) {
+            if (m_tokenGroups.at(i) == tokenGroup) {
+                m_tokenGroups.erase(m_tokenGroups.begin() + i);
             }
         }
     }
