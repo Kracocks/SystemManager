@@ -5,7 +5,6 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 #include <string>
-#include <bits/stl_vector.h>
 
 namespace model {
     class Token {

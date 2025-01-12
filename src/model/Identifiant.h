@@ -5,7 +5,6 @@
 #ifndef IDENTIFIANT_H
 #define IDENTIFIANT_H
 #include <string>
-#include <bits/stl_vector.h>
 
 namespace model {
 
