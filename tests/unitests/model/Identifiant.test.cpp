@@ -29,3 +29,36 @@ TEST_CASE("Test the constructors of Identifiant", "[identifiant]") {
     delete ident3;
     delete ident4;
 }
+
+TEST_CASE("Test the getters of Identifiant", "[identifiant]") {
+    const model::Identifiant ident{"test@email.com","1234"};
+
+    REQUIRE(ident.getEmail() == "test@email.com");
+    REQUIRE(ident.getPassword() == "1234");
+}
+
+TEST_CASE("Test the setters of Identifiant", "[identifiant]") {
+    model::Identifiant ident{"test@email.com","1234"};
+
+    ident.setEmail("test1@email.com");
+    REQUIRE(ident.getEmail() == "test1@email.com");
+    ident.setPassword("4321");
+    REQUIRE(ident.getPassword() == "4321");
+
+    const std::string email {"test2@email.com"};
+    const std::string password {"12345678"};
+    ident.setEmail(email);
+    REQUIRE(ident.getEmail() == "test2@email.com");
+    ident.setPassword(password);
+    REQUIRE(ident.getPassword() == "12345678");
+}
+
+TEST_CASE("Test operator==", "[identifiant]") {
+    model::Identifiant ident1{"test@email.com","1234"};
+    model::Identifiant ident2{"test@email.com","1234"};
+    model::Identifiant ident3{"test@email.com","12345678"};
+
+    REQUIRE(ident1 == ident2);
+    REQUIRE(ident1 != ident3);
+    REQUIRE(ident2 != ident3);
+}
