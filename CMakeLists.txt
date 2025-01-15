@@ -5,7 +5,8 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_subdirectory(src/model)
 add_subdirectory(tests)
-
 add_subdirectory(libs/Catch2)
 
-add_executable(SystemManager src/main.cpp)
+add_executable(SystemManager main.cpp)
+
+target_link_libraries(SystemManager model)

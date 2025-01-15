@@ -2,12 +2,11 @@
 // Created by kracocks on 13/01/25.
 //
 
-#define CATCH_CONFIG_MAIN
 #include <catch2/catch_all.hpp>
 
-#include "model/Identifiant.h"
+#include <Identifiant.h>
 
-TEST_CASE("Test the constructors of Identifiant", "[model]") {
+TEST_CASE("Test the constructors of Identifiant", "[identifiant]") {
     // Check if every constructor works
     const std::string email {"test@email.com"};
     const std::string password {"1234"};
