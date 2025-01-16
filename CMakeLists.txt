@@ -13,7 +13,12 @@ add_executable(SystemManager src/main.cpp
         src/model/TokenGroup.cpp
         src/model/TokenGroup.h
         src/model/Token.cpp
-        src/model/Token.h)
+        src/model/Token.h
+        src/bd/IdentifiantDao.cpp
+        src/bd/IdentifiantDao.h
+        src/bd/TokenDao.cpp
+        src/bd/TokenDao.h
+)
 
 find_package(SQLite3 REQUIRED)
 
