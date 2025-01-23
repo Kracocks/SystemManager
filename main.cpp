@@ -1,10 +1,13 @@
 #include <iostream>
-#include <sqlite3.h>
 
-#include "./bd/Connector.h"
+#include "src/model/Identifiant.h"
+#include "src/bd/Connector.h"
 
 int main() {
-    const std::string db_path = "passwords.sqlite";
+    model::Identifiant ident("model", "test");
+    std::cout << ident.getEmail() << std::endl;
+
+    const std::string db_path = "data/passwords.sqlite";
     const std::string db_key = std::getenv("DB_KEY");
 
     bd::Connector& db = bd::Connector::getInstance();

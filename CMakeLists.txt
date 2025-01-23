@@ -3,26 +3,12 @@ project(SystemManager)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(SystemManager src/main.cpp
-        src/bd/Connector.cpp
-        src/bd/Connector.h
-        src/model/Service.cpp
-        src/model/Service.h
-        src/model/Identifiant.cpp
-        src/model/Identifiant.h
-        src/model/TokenGroup.cpp
-        src/model/TokenGroup.h
-        src/model/Token.cpp
-        src/model/Token.h
-        src/bd/IIdentifiantDao.h
-        src/bd/ITokenDao.h
-        src/bd/IGenericDao.h
-        src/bd/ITokenGroupDAO.h
-        src/bd/IServiceDAO.h
-)
+add_executable(${PROJECT_NAME} main.cpp)
 
-find_package(SQLite3 REQUIRED)
+add_subdirectory(src)
+add_subdirectory(tests)
+add_subdirectory(libs/Catch2)
 
 target_link_libraries(${PROJECT_NAME}
-        SQLite::SQLite3
-)
+    model
+    bd)
