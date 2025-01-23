@@ -5,15 +5,10 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
-find_package(SQLite3 REQUIRED)
-
-target_link_libraries(${PROJECT_NAME}
-        SQLite::SQLite3
-        model
-        bd
-)
-
-add_subdirectory(src/model)
-add_subdirectory(src/bd)
+add_subdirectory(src)
 add_subdirectory(tests)
 add_subdirectory(libs/Catch2)
+
+target_link_libraries(${PROJECT_NAME}
+    model
+    bd)

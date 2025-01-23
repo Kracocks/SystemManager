@@ -3,6 +3,8 @@
 #ifndef CONNECTOR_H
 #define CONNECTOR_H
 
+#include <sqlcipher/sqlite3.h>
+
 namespace bd {
 
     class Connector {

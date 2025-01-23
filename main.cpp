@@ -5,7 +5,7 @@
 
 int main() {
     model::Identifiant ident("model", "test");
-    std::cout << ident.getEmail();
+    std::cout << ident.getEmail() << std::endl;
 
     const std::string db_path = "data/passwords.sqlite";
     const std::string db_key = std::getenv("DB_KEY");

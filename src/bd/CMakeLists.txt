@@ -12,8 +12,9 @@ add_library(bd STATIC
         ITokenDao.h
         ITokenGroupDAO.h)
 
-find_package(SQLite3 REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(SQLCIPHER REQUIRED sqlcipher)
 
-target_link_libraries(bd PUBLIC SQLite::SQLite3)
+target_link_libraries(bd PUBLIC ${SQLCIPHER_LIBRARIES})
 
-target_include_directories(bd PUBLIC ${CMAKE_SOURCE_DIR}/src/bd)
+target_include_directories(bd PUBLIC ${SQLCIPHER_INCLUDE_DIRS})

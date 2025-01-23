@@ -13,4 +13,4 @@ add_library(model STATIC
         Token.cpp
         Token.h)
 
-target_include_directories(model PUBLIC ${CMAKE_SOURCE_DIR}/src/model)
+target_include_directories(model PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
