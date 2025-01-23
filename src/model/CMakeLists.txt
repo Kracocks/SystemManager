@@ -3,7 +3,8 @@ project(SystemManager)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_library(model STATIC Service.cpp
+add_library(model STATIC
+        Service.cpp
         Service.h
         Identifiant.cpp
         Identifiant.h
