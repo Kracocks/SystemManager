@@ -1,10 +1,21 @@
 #include <iostream>
 
-#include "Identifiant.h"
+#include "src/model/Identifiant.h"
+#include "src/bd/Connector.h"
 
 int main() {
     model::Identifiant ident("model", "test");
     std::cout << ident.getEmail();
-    std::cout << "Hello, World!" << std::endl;
+
+    const std::string db_path = "passwords.sqlite";
+    const std::string db_key = std::getenv("DB_KEY");
+
+    bd::Connector& db = bd::Connector::getInstance();
+    if (db.getDB()) {
+        std::cout << "ok" << std::endl;
+    } else {
+        std::cerr << "Failed to open db" << std::endl;
+        return 1;
+    }
     return 0;
 }
