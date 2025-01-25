@@ -12,9 +12,10 @@ create table if not exists SERVICE(
 create table if not exists UTILISE(
     id_ident int,
     id_service int,
+    email text(50),
     foreign key (id_ident) references IDENTIFIANT(id_ident),
     foreign key (id_service) references SERVICE(id_service),
-    unique (id_ident, id_service)
+    unique (email, id_service)
 );
 
 create table if not exists TOKEN_GROUP(
@@ -28,5 +29,6 @@ create table if not exists TOKEN(
     id_token integer primary key autoincrement,
     id_token_group int,
     valeur_token text(100),
-    foreign key (id_token_group) references TOKEN_GROUP(id_token_group)
+    foreign key (id_token_group) references TOKEN_GROUP(id_token_group),
+    unique (id_token_group, valeur_token)
 );
