@@ -9,6 +9,8 @@ add_library(impl STATIC
         TokenDaoImpl.cpp
         TokenDaoImpl.h
         TokenGroupDaoImpl.cpp
-        TokenGroupDaoImpl.h)
+        TokenGroupDaoImpl.h
+        ServiceDaoImpl.cpp
+        ServiceDaoImpl.h)
 
 target_include_directories(impl PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
