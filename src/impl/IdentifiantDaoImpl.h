@@ -4,7 +4,6 @@
 
 #ifndef IDENTIFIANTDAOIMPL_H
 #define IDENTIFIANTDAOIMPL_H
-#include <sqlite3.h>
 
 #include "../bd/Connector.h"
 #include "../bd/IIdentifiantDao.h"
