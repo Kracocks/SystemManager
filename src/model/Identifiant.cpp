@@ -21,12 +21,28 @@ namespace model {
         : m_email(std::move(email)), m_password(password) {
     }
 
+    int Identifiant::getId() const {
+        return m_id;
+    }
+
     std::string Identifiant::getEmail() const {
         return m_email;
     }
 
     std::string Identifiant::getPassword() const {
         return m_password;
+    }
+
+    std::vector<Service> Identifiant::getServices() const {
+        return m_services;
+    }
+
+    void Identifiant::setID(const int &id) {
+        m_id = id;
+    }
+
+    void Identifiant::setID(int &&id) {
+        m_id = id;
     }
 
     void Identifiant::setEmail(const std::string &email) {
@@ -43,6 +59,14 @@ namespace model {
 
     void Identifiant::setPassword(std::string &&password) {
         m_password = std::move(password);
+    }
+
+    void Identifiant::addService(const Service &service) {
+        m_services.push_back(service);
+    }
+
+    void Identifiant::addService(Service &&service) {
+        m_services.push_back(std::move(service));
     }
 
     bool Identifiant::operator==(const Identifiant &other) const {
