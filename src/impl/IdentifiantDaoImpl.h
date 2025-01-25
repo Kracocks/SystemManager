@@ -11,7 +11,6 @@
 namespace impl {
 
     class IdentifiantDaoImpl final : public bd::IIdentifiantDao {
-        std::vector<model::Identifiant> m_identifiants;
         bd::Connector &m_connector;
 
     public:

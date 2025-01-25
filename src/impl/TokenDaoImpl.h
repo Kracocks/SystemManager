@@ -11,7 +11,6 @@
 namespace impl {
 
     class TokenDaoImpl final: public bd::IITokenDao {
-        std::vector<model::Token> m_tokens;
         bd::Connector &m_connector;
 
     public:

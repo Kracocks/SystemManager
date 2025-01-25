@@ -33,12 +33,12 @@ namespace impl {
     }
 
     model::Token TokenDaoImpl::findByValue(std::string &&value) {
-        // TODO : remove it
+        // TODO : remake it
         return model::Token{"Does not exist"};
     }
 
     model::Token TokenDaoImpl::findByValue(const std::string &value) {
-        // TODO : remove it
+        // TODO : remake it
         return model::Token{"Does not exist"};
     }
 
