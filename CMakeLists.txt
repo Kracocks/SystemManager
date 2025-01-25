@@ -11,4 +11,5 @@ add_subdirectory(libs/Catch2)
 
 target_link_libraries(${PROJECT_NAME}
     model
-    bd)
+    bd
+    impl)
