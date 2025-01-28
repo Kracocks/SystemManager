@@ -96,11 +96,23 @@ namespace model {
          */
         void setEmail(const Str &&email) {m_email = std::move(email);}
 
+		/**
+		 * Set the email of the login
+		 * @param email New email of the login
+		 */
+		void setEmail(const Str &email) {m_email = std::move(email);}
+
         /**
          * Set the password of the login
          * @param password New password of the login
          */
         void setPassword(const Str &&password) {m_password = std::move(password);}
+
+		/**
+         * Set the password of the login
+         * @param password New password of the login
+         */
+        void setPassword(const Str &password) {m_password = std::move(password);}
 
         /**
          * Add a new service to the login
