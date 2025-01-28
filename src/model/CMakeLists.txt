@@ -6,11 +6,12 @@ set(CMAKE_CXX_STANDARD 23)
 add_library(model STATIC
         Service.cpp
         Service.h
-        Identifiant.cpp
         Identifiant.h
         TokenGroup.cpp
         TokenGroup.h
         Token.cpp
         Token.h)
+
+find_package(OpenSSL REQUIRED)
 
 target_include_directories(model PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
