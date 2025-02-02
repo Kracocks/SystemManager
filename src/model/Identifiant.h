@@ -8,7 +8,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <openssl/sha.h>
 
 namespace model {
 	struct Service;
@@ -20,16 +19,6 @@ namespace model {
         Str m_email;
         Str m_password;
         std::vector<Ser> m_services;
-
-		void encrypt(Str &&password) {
-			// TODO: make the encryption
-			return m_email + password + m_id;
-        }
-
-    	Str decrypt(Str &&password) {
-			// TODO :Make the decryption
-			return m_email - password - m_id;
-        }
 
     public:
         Identifiant() = delete;

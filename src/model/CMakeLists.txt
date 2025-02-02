@@ -10,7 +10,9 @@ add_library(model STATIC
         TokenGroup.cpp
         TokenGroup.h
         Token.cpp
-        Token.h)
+        Token.h
+        Encrypt.cpp
+        Encrypt.h)
 
 find_package(OpenSSL REQUIRED)
 
