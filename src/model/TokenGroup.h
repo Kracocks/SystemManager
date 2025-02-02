@@ -14,7 +14,6 @@ namespace model {
 	struct TokenGroup {
 		int id;
 		std::string name;
-		Service* service;
 		std::vector<Token> tokens;
 
 		void display() const;

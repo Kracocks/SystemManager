@@ -9,13 +9,9 @@
 
 namespace model {
 	void Service::display() const {
-    	std::cout << "Service " << name << ":\npasswords :\n";
+    	std::cout << "Service " << name << ":\nlogins :\n";
         for (const Identifiant<> &login : identifiants) {
             login.display();
-        }
-        std::cout << "\ntokens :\n";
-        for (const TokenGroup &tGroup : tokenGroups) {
-            tGroup.display();
         }
         std::cout << "\n";
     }
