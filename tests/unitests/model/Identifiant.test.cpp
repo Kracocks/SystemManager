@@ -4,20 +4,21 @@
 
 #include <catch2/catch_all.hpp>
 
-#include <Identifiant.h>
+#include "Identifiant.h"
+#include "Service.h"
 
 TEST_CASE("Test the constructors of Identifiant", "[identifiant]") {
     // Check if every constructor works
     const std::string email {"test@email.com"};
     const std::string password {"1234"};
 
-    const model::Identifiant<> * ident2 {new model::Identifiant<>(-1, email, password, true)};
+    const model::Identifiant<>* ident2 {new model::Identifiant<>(-1, email.data(), password.data(), true)};
 
     const model::Identifiant<>* ident1 {new model::Identifiant<>(-1, "test", "1234", true)};
 
-    const model::Identifiant<>* ident3 {new model::Identifiant<>(-1, "test", password, true)};
+    const model::Identifiant<>* ident3 {new model::Identifiant<>(-1, "test", password.data(), true)};
 
-    const model::Identifiant<>* ident4 {new model::Identifiant<>(-1, email, "1234", true)};
+    const model::Identifiant<>* ident4 {new model::Identifiant<>(-1, email.data(), "1234", true)};
 
     REQUIRE(ident1 != nullptr);
     REQUIRE(ident2 != nullptr);
@@ -48,7 +49,7 @@ TEST_CASE("Test the setters of Identifiant", "[identifiant]") {
     const std::string password {"12345678"};
     ident.setEmail(email);
     REQUIRE(ident.getEmail() == "test2@email.com");
-    ident.setPassword(password);
+    ident.setPassword(password.data());
     REQUIRE(ident.getPassword() == "12345678");
 }
 

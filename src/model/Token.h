@@ -12,6 +12,8 @@ namespace model {
 		std::string value;
 
 		void display() const;
+
+		bool operator==(const Token &other) const;
 	};
 } // model
 

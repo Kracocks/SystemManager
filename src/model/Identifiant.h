@@ -10,11 +10,10 @@
 #include <vector>
 
 #include "Encrypt.h"
-#include "TokenGroup.h"
 
 namespace model {
-	struct Service;
 	struct TokenGroup;
+	struct Service;
 
 	template <typename Int=int, typename Str=std::string, typename Ser=Service, typename Bool=bool, typename TGroup=TokenGroup>
     requires std::same_as<Int, int> &&

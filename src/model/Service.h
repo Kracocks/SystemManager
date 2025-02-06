@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "Identifiant.h"
+#include "TokenGroup.h"
 
 namespace model {
 	struct Service;

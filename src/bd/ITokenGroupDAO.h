@@ -4,8 +4,8 @@
 
 #ifndef ITOKENGROUPDAO_H
 #define ITOKENGROUPDAO_H
-#include "IGenericDao.h"
 #include "../model/TokenGroup.h"
+#include "IGenericDao.h"
 
 namespace bd {
     class ITokenGroupDAO: public IGenericDAO<model::TokenGroup> {
