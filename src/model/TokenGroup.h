@@ -7,76 +7,32 @@
 #include <string>
 #include <vector>
 
+#include "Identifiant.h"
+#include "Service.h"
 #include "Token.h"
+#include "TokenGroup.h"
 
 namespace model {
+	struct Service;
+	struct TokenGroup;
+	struct Token;
 
-    class TokenGroup {
-        std::string m_name;
-        std::vector<Token> m_tokens;
+	template <typename Int, typename Str, typename Ser, typename Bool, typename TGroup>
+	requires std::same_as<Int, int> &&
+			 std::same_as<Str, std::string> &&
+			 std::same_as<Ser, Service> &&
+			 std::same_as<Bool, bool> &&
+			 std::same_as<TGroup, TokenGroup>
+	class Identifiant;
 
-    public:
-        /**
-         * Create a group of token with a name
-         * @param name Name of the group of tokens
-         */
-        explicit TokenGroup(const std::string &name);
-        /**
-         * Create a group of token with a name
-         * @param name Name of the group of tokens
-         */
-        explicit TokenGroup(std::string &&name);
+	struct TokenGroup {
+		int id;
+		std::string name;
+		Identifiant<int, std::string, Service, bool, TokenGroup> login;
+		std::vector<Token> tokens;
 
-        /**
-         * Get the name of the group
-         * @return Name of the group of tokens
-         */
-        [[nodiscard]] std::string getName() const;
-        /**
-         * Get the tokens in the group
-         * @return Tokens stocked in the group
-         */
-        [[nodiscard]] std::vector<Token> getTokens() const;
-
-        /**
-         * Set the name of the group
-         * @param name New name for the group
-         */
-        void setName(const std::string &name);
-        /**
-         * Set the name of the group
-         * @param name New name for the group
-         */
-        void setName(std::string &&name);
-
-        /**
-         * Add a token in the group
-         * @param token Token added in the group
-         */
-        void addToken(const Token &token);
-        /**
-         * Add a token in the group
-         * @param token Token added in the group
-         */
-        void addToken(Token &&token);
-        /**
-         * Remove a specific token from the group
-         * @param token The token to remove
-         */
-        void removeToken(const Token &token);
-        /**
-         * Remove a specific token from the group
-         * @param token The token to remove
-         */
-        void removeToken(Token &&token);
-
-        /**
-         * Compare two groups of tokens
-         * @param token_group Group to compare
-         * @return True if the two objects are the same
-         */
-        bool operator==(const TokenGroup &token_group) const;
-    };
+		void display() const;
+	};
 } // model
 
 #endif //TOKENGROUP_H

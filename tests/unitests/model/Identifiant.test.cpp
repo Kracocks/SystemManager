@@ -4,21 +4,21 @@
 
 #include <catch2/catch_all.hpp>
 
-#include <Identifiant.h>
+#include "Identifiant.h"
+#include "Service.h"
 
 TEST_CASE("Test the constructors of Identifiant", "[identifiant]") {
     // Check if every constructor works
     const std::string email {"test@email.com"};
     const std::string password {"1234"};
 
-    // lvalue and lvalue
-    const model::Identifiant* ident2 {new model::Identifiant(email, password)};
-    // rvalue and rvalue
-    const model::Identifiant* ident1 {new model::Identifiant("test", "1234")};
-    // rvalue and lvalue
-    const model::Identifiant* ident3 {new model::Identifiant("test", password)};
-    // lvalue and rvalue
-    const model::Identifiant* ident4 {new model::Identifiant(email, "1234")};
+    const model::Identifiant<>* ident2 {new model::Identifiant<>(-1, email.data(), password.data(), true)};
+
+    const model::Identifiant<>* ident1 {new model::Identifiant<>(-1, "test", "1234", true)};
+
+    const model::Identifiant<>* ident3 {new model::Identifiant<>(-1, "test", password.data(), true)};
+
+    const model::Identifiant<>* ident4 {new model::Identifiant<>(-1, email.data(), "1234", true)};
 
     REQUIRE(ident1 != nullptr);
     REQUIRE(ident2 != nullptr);
@@ -31,14 +31,14 @@ TEST_CASE("Test the constructors of Identifiant", "[identifiant]") {
 }
 
 TEST_CASE("Test the getters of Identifiant", "[identifiant]") {
-    const model::Identifiant ident{"test@email.com","1234"};
+    const model::Identifiant<> ident{-1, "test@email.com","1234", true};
 
     REQUIRE(ident.getEmail() == "test@email.com");
     REQUIRE(ident.getPassword() == "1234");
 }
 
 TEST_CASE("Test the setters of Identifiant", "[identifiant]") {
-    model::Identifiant ident{"test@email.com","1234"};
+	model::Identifiant<> ident{-1, "test@email.com","1234" , true};
 
     ident.setEmail("test1@email.com");
     REQUIRE(ident.getEmail() == "test1@email.com");
@@ -49,14 +49,14 @@ TEST_CASE("Test the setters of Identifiant", "[identifiant]") {
     const std::string password {"12345678"};
     ident.setEmail(email);
     REQUIRE(ident.getEmail() == "test2@email.com");
-    ident.setPassword(password);
+    ident.setPassword(password.data());
     REQUIRE(ident.getPassword() == "12345678");
 }
 
 TEST_CASE("Test operator==", "[identifiant]") {
-    model::Identifiant ident1{"test@email.com","1234"};
-    model::Identifiant ident2{"test@email.com","1234"};
-    model::Identifiant ident3{"test@email.com","12345678"};
+	model::Identifiant<> ident1{-1, "test@email.com","1234", true};
+    model::Identifiant<> ident2{-1, "test@email.com","1234", true};
+    model::Identifiant<> ident3{-1, "test@email.com","12345678", true};
 
     REQUIRE(ident1 == ident2);
     REQUIRE(ident1 != ident3);

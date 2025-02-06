@@ -1,10 +1,11 @@
 #include <iostream>
 
 #include "src/model/Identifiant.h"
+#include "src/model/Service.h"
 #include "src/bd/Connector.h"
 
 int main() {
-    model::Identifiant ident("model", "test");
+	model::Identifiant<> ident(-1, "model", "test", true);
     std::cout << ident.getEmail() << std::endl;
 
     const std::string db_path = "data/passwords.sqlite";
