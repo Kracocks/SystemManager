@@ -13,7 +13,10 @@ namespace model {
 	struct Utils {
 		template <typename T>
 		static void removeElement(std::vector<T> &vec, const T &value) {
-			vec.erase(std::remove(vec.begin(), vec.end(), value), vec.end());
+			auto it = std::find(vec.begin(), vec.end(), value);
+			if (it != vec.end()) {
+				vec.erase(it);
+			}
 		}
 		template <typename T>
 		static bool contains(std::vector<T> &vec, const T &value) {
