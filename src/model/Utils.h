@@ -15,7 +15,7 @@ namespace model {
 		static void removeElement(std::vector<T> &vec, const T &value) {
 			auto it = std::find(vec.begin(), vec.end(), value);
 			if (it != vec.end()) {
-				vec.erase(it);  // Supprime uniquement la première occurrence trouvée
+				vec.erase(it);
 			}
 		}
 		template <typename T>
