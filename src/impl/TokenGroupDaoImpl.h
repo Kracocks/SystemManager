@@ -17,11 +17,11 @@ namespace impl {
     public:
         explicit TokenGroupDaoImpl();
 
-        ~TokenGroupDaoImpl() override;
+        ~TokenGroupDaoImpl() override = default;
 
         std::vector<model::TokenGroup> findAll() override;
-        model::TokenGroup findByName(std::string &&name) override;
-        model::TokenGroup findByName(const std::string &name) override;
+        std::vector<model::TokenGroup> findByName(std::string &&name) override;
+        std::vector<model::TokenGroup> findByName(const std::string &name) override;
         void insert(const model::TokenGroup &item) override;
         void remove(const model::TokenGroup &item) override;
     };

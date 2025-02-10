@@ -4,6 +4,7 @@
 
 #ifndef SERVICEDAOIMPL_H
 #define SERVICEDAOIMPL_H
+
 #include "../bd/Connector.h"
 #include "../bd/IServiceDAO.h"
 
@@ -18,8 +19,8 @@ namespace impl {
         ~ServiceDaoImpl() override = default;
 
         std::vector<model::Service> findAll() override;
-        model::Service findByName(std::string &&name) override;
-        model::Service findByName(const std::string &name) override;
+        std::vector<model::Service> findByName(std::string &&name) override;
+        std::vector<model::Service> findByName(const std::string &name) override;
         void insert(const model::Service &item) override;
         void remove(const model::Service &item) override;
     };

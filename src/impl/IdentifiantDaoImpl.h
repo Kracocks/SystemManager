@@ -18,11 +18,11 @@ namespace impl {
 
         ~IdentifiantDaoImpl() override = default;
 
-        std::vector<model::Identifiant> findAll() override;
-        std::vector<model::Identifiant> findByEmail(std::string &&email) override;
-        std::vector<model::Identifiant> findByEmail(const std::string &email) override;
-        void insert(const model::Identifiant &item) override;
-        void remove(const model::Identifiant &item) override;
+        std::vector<model::Identifiant<>> findAll() override;
+        std::vector<model::Identifiant<>> findByEmail(std::string &&email) override;
+        std::vector<model::Identifiant<>> findByEmail(const std::string &email) override;
+        void insert(const model::Identifiant<> &item) override;
+        void remove(const model::Identifiant<> &item) override;
     };
 
 } // impl
