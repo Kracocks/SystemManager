@@ -8,9 +8,9 @@
 #include "../model/Service.h"
 
 namespace bd {
-    class IServiceDAO: public IGenericDAO<model::Service>{
+    class IServiceDao: public IGenericDAO<model::Service>{
     public:
-        ~IServiceDAO() override;
+        ~IServiceDao() override;
 
         virtual model::Service findByName(const std::string &name) = 0;
         virtual model::Service findByName(std::string &&name) = 0;
