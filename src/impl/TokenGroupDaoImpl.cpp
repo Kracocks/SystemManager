@@ -61,10 +61,30 @@ namespace impl {
     	return tokenGroups;
     }
 
-    model::TokenGroup TokenGroupDaoImpl::findByName(const std::string &name) {
-        model::TokenGroup tokenGroup{"Does not have a name"};
-        // TODO : remake it
-        return tokenGroup;
+    std::vector<model::TokenGroup> TokenGroupDaoImpl::findByName(const std::string &name) {
+    	std::vector<model::TokenGroup> tokenGroups;
+    	sqlite3 *bd = m_connector.getDB();
+    	const std::string sql = "SELECT token_group_id, login_id, group_name FROM TOKEN_GROUP where group_name LIKE ?;";
+    	sqlite3_stmt *stmt;
+
+    	int status = sqlite3_prepare_v3(bd, sql.c_str(), -1, SQLITE_PREPARE_PERSISTENT, &stmt, nullptr);
+    	if (status != SQLITE_OK) {
+    		std::cerr << "Error preparing statement to get all TOKEN_GROUP" << std::endl;
+    		return tokenGroups;
+    	}
+    	sqlite3_bind_text(stmt, 1, name.c_str(), -1, SQLITE_STATIC);
+
+    	while (sqlite3_step(stmt) == SQLITE_ROW) {
+    		model::TokenGroup tokenGroup{
+    			sqlite3_column_int(stmt, 0),
+				sqlite3_column_int(stmt, 1),
+				sqlite3_column_text(stmt, 2)
+			};
+    		tokenGroups.push_back(tokenGroup);
+    	}
+
+    	sqlite3_finalize(stmt);
+    	return tokenGroups;
     }
 
     void TokenGroupDaoImpl::insert(const model::TokenGroup &item) {
@@ -109,9 +129,4 @@ namespace impl {
     	std::cout << "removed TOKEN_GROUP" << std::endl;
     	sqlite3_finalize(stmt);
     }
-
-
-
-
-
 } // impl
