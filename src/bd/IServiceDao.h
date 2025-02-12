@@ -12,8 +12,8 @@ namespace bd {
     public:
         ~IServiceDao() override;
 
-        virtual model::Service findByName(const std::string &name) = 0;
-        virtual model::Service findByName(std::string &&name) = 0;
+        virtual std::vector<model::Service> findByName(const std::string &name) = 0;
+        virtual std::vector<model::Service> findByName(std::string &&name) = 0;
     };
 }
 

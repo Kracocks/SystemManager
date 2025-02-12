@@ -9,7 +9,6 @@ add_library(bd STATIC
         IGenericDao.h
         IIdentifiantDao.h
         IServiceDao.h
-        ITokenDao.h
         ITokenGroupDao.h)
 
 find_package(PkgConfig REQUIRED)
