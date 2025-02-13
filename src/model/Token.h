@@ -9,6 +9,7 @@
 namespace model {
 	struct Token {
 		int id;
+		int tgroup_id;
 		std::string value;
 
 		void display() const;

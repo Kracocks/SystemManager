@@ -12,8 +12,8 @@ namespace bd {
     public:
         ~ITokenGroupDAO() override;
 
-        virtual model::TokenGroup findByName(const std::string &name) = 0;
-        virtual model::TokenGroup findByName(std::string &&name) = 0;
+        virtual std::vector<model::TokenGroup> findByName(const std::string &name) = 0;
+        virtual std::vector<model::TokenGroup> findByName(std::string &&name) = 0;
     };
 }
 

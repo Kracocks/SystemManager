@@ -4,19 +4,19 @@
 
 #ifndef TOKENDAO_H
 #define TOKENDAO_H
-#include <vector>
 
+#include <vector>
 #include "IGenericDao.h"
 #include "../model/Token.h"
 
 namespace bd {
-    class IITokenDao: public IGenericDAO<model::Token> {
-    public:
-        ~IITokenDao() override;
+	class IITokenDao: public IGenericDAO<model::Token> {
+	public:
+		~IITokenDao() override;
 
-        virtual model::Token findByValue(const std::string &value) = 0;
-        virtual model::Token findByValue(std::string &&value) = 0;
-    };
+		virtual std::vector<model::Token> findByValue(const std::string &value) = 0;
+		virtual std::vector<model::Token> findByValue(std::string &&value) = 0;
+	};
 
 } // bd
 
