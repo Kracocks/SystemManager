@@ -9,7 +9,8 @@ add_library(bd STATIC
         IGenericDao.h
         IIdentifiantDao.h
         IServiceDao.h
-        ITokenGroupDao.h)
+        ITokenGroupDao.h
+        ITokenDao.h)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(SQLCIPHER REQUIRED sqlcipher)
