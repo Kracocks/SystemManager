@@ -43,8 +43,8 @@ TEST_CASE("Test the setters of TokenGroup", "[tokengroup]") {
 TEST_CASE("Test adding and removing tokens of TokenGroup", "[tokengroup]") {
 	model::Identifiant<> login {0, "test", "test", false};
     model::TokenGroup token_group{0, "test", login};
-    const model::Token token1{0, "token1"};
-    const model::Token token2{1, "token2"};
+    const model::Token token1{0, 0, "token1"};
+    const model::Token token2{1, 0, "token2"};
 	token_group.tokens.push_back(token1);
 	token_group.tokens.push_back(token2);
 
