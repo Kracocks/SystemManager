@@ -18,8 +18,8 @@ namespace impl {
         ~TokenDaoImpl() override = default;
 
         std::vector<model::Token> findAll() override;
-        model::Token findByValue(std::string &&value) override;
-        model::Token findByValue(const std::string &value) override;
+        std::vector<model::Token> findByValue(std::string &&value) override;
+        std::vector<model::Token> findByValue(const std::string &value) override;
         void insert(const model::Token &item) override;
         void remove(const model::Token &item) override;
     };

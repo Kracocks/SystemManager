@@ -4,13 +4,12 @@
 
 #ifndef SERVICEDAOIMPL_H
 #define SERVICEDAOIMPL_H
-
 #include "../bd/Connector.h"
-#include "../bd/IServiceDAO.h"
+#include "../bd/IServiceDao.h"
 
 namespace impl {
 
-    class ServiceDaoImpl final: public bd::IServiceDAO {
+    class ServiceDaoImpl final: public bd::IServiceDao {
         bd::Connector &m_connector;
 
     public:
