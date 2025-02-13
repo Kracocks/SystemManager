@@ -27,8 +27,8 @@ namespace model {
 
 	struct TokenGroup {
 		int id;
+		int login_id;
 		std::string name;
-		Identifiant<int, std::string, Service, bool, TokenGroup> login;
 		std::vector<Token> tokens;
 
 		void display() const;
