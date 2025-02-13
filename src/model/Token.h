@@ -11,7 +11,7 @@
 namespace model {
 	struct Token {
 		int id;
-		TokenGroup tgroup;
+		int tgroup_id;
 		std::string value;
 
 		void display() const;
