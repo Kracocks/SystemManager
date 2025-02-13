@@ -5,6 +5,7 @@
 #include <catch2/catch_all.hpp>
 
 #include "Service.h"
+#include "Token.h"
 #include "TokenGroup.h"
 #include "Utils.h"
 
@@ -35,7 +36,7 @@ TEST_CASE("Test the setters of Service", "[service]") {
     REQUIRE(service.name == "test2");
 }
 
-TEST_CASE("Test adding and removing identifiant and token groups of Service", "[service]") {
+TEST_CASE("Test adding and removing token groups of Service", "[service]") {
     model::Service service{0, "test"};
 
     // test identifiants
@@ -44,11 +45,14 @@ TEST_CASE("Test adding and removing identifiant and token groups of Service", "[
 
     const model::Identifiant<> ident2{1, "test@email.com", "1234", false};
 	service.identifiants.push_back(ident2);
+
 	REQUIRE(service.identifiants == std::vector<model::Identifiant<>>({ident1, ident2}));
 
 	model::Utils::removeElement(service.identifiants, ident2);
+
     REQUIRE(service.identifiants == std::vector<model::Identifiant<>>({ident1}));
 
 	model::Utils::removeElement(service.identifiants, ident1);
+
     REQUIRE(service.identifiants.empty());
 }
