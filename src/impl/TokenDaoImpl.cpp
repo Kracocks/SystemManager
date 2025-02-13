@@ -24,7 +24,8 @@ namespace impl {
         while (sqlite3_step(stmt) == SQLITE_ROW) {
             model::Token token{
             	sqlite3_column_int(stmt, 0),
-            	reinterpret_cast<const char *>(sqlite3_column_text(stmt, 1))};
+            	sqlite3_column_int(stmt, 1),
+            	reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2))};
             tokens.push_back(token);
         }
 
@@ -33,14 +34,14 @@ namespace impl {
         return tokens;
     }
 
-    model::Token TokenDaoImpl::findByValue(std::string &&value) {
+    std::vector<model::Token> TokenDaoImpl::findByValue(std::string &&value) {
         // When I first made this method I didn't think enough about how it is stupid
     	// But now that I noticed it I will let this because this is funny
-        return model::Token{-1, "Does not exist"};
+        return std::vector<model::Token>{};
     }
 
-    model::Token TokenDaoImpl::findByValue(const std::string &value) {
-        return model::Token{-1, "Does not exist"};
+    std::vector<model::Token> TokenDaoImpl::findByValue(const std::string &value) {
+    	return std::vector<model::Token>{};
     }
 
     void TokenDaoImpl::insert(const model::Token &item) {
@@ -51,7 +52,6 @@ namespace impl {
         if (sqlite3_prepare_v2(bd, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
         	std::cerr << "Error preparing statement to insert TOKEN" << std::endl;
         }
-    	// TODO : add tgroup_id member to model::Token
     	sqlite3_bind_int(stmt, 1, item.tgroup_id);
     	sqlite3_bind_text(stmt, 2, item.value.c_str(), -1, SQLITE_STATIC);
 
