@@ -5,15 +5,13 @@
 #include <iostream>
 #include <ostream>
 
-#include "Token.h"
 #include "TokenGroup.h"
 
 namespace model {
     void TokenGroup::display() const {
 	    std::cout << name << "\n";
-		for (const Token &token: tokens) {
-			std::cout << "\t";
-			token.display();
+		for (const auto &[_, value] : tokens) {
+			std::cout << value << "\n";
 		}
     	std::cout << "\n";
     }

@@ -9,8 +9,6 @@ add_library(model STATIC
         Identifiant.h
         TokenGroup.cpp
         TokenGroup.h
-        Token.cpp
-        Token.h
         Encrypt.cpp
         Encrypt.h
         Utils.h)

@@ -5,17 +5,15 @@
 #ifndef TOKENGROUP_H
 #define TOKENGROUP_H
 #include <string>
-#include <vector>
+#include <unordered_map>
 
 #include "Identifiant.h"
 #include "Service.h"
-#include "Token.h"
 #include "TokenGroup.h"
 
 namespace model {
 	struct Service;
 	struct TokenGroup;
-	struct Token;
 
 	template <typename Int, typename Str, typename Ser, typename Bool, typename TGroup>
 	requires std::same_as<Int, int> &&
@@ -27,9 +25,9 @@ namespace model {
 
 	struct TokenGroup {
 		int id;
+		int login_id;
 		std::string name;
-		Identifiant<int, std::string, Service, bool, TokenGroup> login;
-		std::vector<Token> tokens;
+		std::unordered_map<int, std::string> tokens;
 
 		void display() const;
 	};
