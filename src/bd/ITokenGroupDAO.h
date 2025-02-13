@@ -8,9 +8,9 @@
 #include "../model/TokenGroup.h"
 
 namespace bd {
-    class ITokenGroupDao: public IGenericDAO<model::TokenGroup> {
+    class ITokenGroupDAO: public IGenericDAO<model::TokenGroup> {
     public:
-        ~ITokenGroupDao() override;
+        ~ITokenGroupDAO() override;
 
         virtual std::vector<model::TokenGroup> findByName(const std::string &name) = 0;
         virtual std::vector<model::TokenGroup> findByName(std::string &&name) = 0;
