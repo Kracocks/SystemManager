@@ -5,6 +5,8 @@
 
 namespace bd {
     // Protected
+    Connector *Connector::m_connector = nullptr;
+
     Connector::Connector(const std::string& dbFilePath, const std::string& key) {
         if (dbFilePath.empty()) {
             std::cerr << "Database path is empty\n";
@@ -49,8 +51,6 @@ namespace bd {
     sqlite3 *Connector::getDB() const {
         return m_bd;
     }
-
-    Connector *Connector::m_connector = nullptr;
 
     Connector &Connector::getInstance() {
         if (m_connector == nullptr)

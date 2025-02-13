@@ -12,7 +12,7 @@
 
 
 namespace bd{
-    class IIdentifiantDao: public IGenericDAO<IIdentifiantDao>{
+    class IIdentifiantDao: public IGenericDAO<model::Identifiant>{
     public:
         ~IIdentifiantDao() override;
 
@@ -23,4 +23,4 @@ namespace bd{
 
 
 
-#endif IDENTIFIANTDAO_H
+#endif //IDENTIFIANTDAO_H

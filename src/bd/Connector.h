@@ -4,6 +4,7 @@
 #define CONNECTOR_H
 
 #include <sqlcipher/sqlite3.h>
+#include <string>
 
 namespace bd {
 
