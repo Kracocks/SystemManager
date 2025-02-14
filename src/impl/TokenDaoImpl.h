@@ -5,8 +5,8 @@
 #ifndef TOKENDAOIMPL_H
 #define TOKENDAOIMPL_H
 #include "../bd/Connector.h"
-#include "../bd/ITokenDao.h"
-#include "../bd/ITokenGroupDAO.h"
+#include "../bd/IGenericDao.h"
+#include "../model/Token.h"
 
 namespace impl {
 

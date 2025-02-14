@@ -5,7 +5,8 @@
 #ifndef SERVICEDAOIMPL_H
 #define SERVICEDAOIMPL_H
 #include "../bd/Connector.h"
-#include "../bd/IServiceDao.h"
+#include "../bd/IGenericDao.h"
+#include "../model/Service.h"
 
 namespace impl {
 

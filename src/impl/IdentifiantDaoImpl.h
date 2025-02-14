@@ -6,7 +6,8 @@
 #define IDENTIFIANTDAOIMPL_H
 
 #include "../bd/Connector.h"
-#include "../bd/IIdentifiantDao.h"
+#include "../bd/IGenericDao.h"
+#include "../model/Identifiant.h"
 
 namespace impl {
 

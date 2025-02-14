@@ -6,7 +6,8 @@
 #define TOKENGROUPDAOIMPL_H
 
 #include "../bd/Connector.h"
-#include "../bd/ITokenGroupDAO.h"
+#include "../bd/IGenericDao.h"
+#include "../model/TokenGroup.h"
 
 namespace impl {
 
