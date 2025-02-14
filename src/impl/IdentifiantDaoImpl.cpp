@@ -116,25 +116,45 @@ namespace impl {
 
     void IdentifiantDaoImpl::insert(const model::Identifiant<> &item) {
         sqlite3 *bd = m_connector.getDB();
-        const std::string sql = "INSERT INTO LOGIN(email, password) values (?, ?);";
-        sqlite3_stmt *stmt = nullptr;
+        const std::string sql_log = "INSERT INTO LOGIN(email, password) values (?, ?);";
+        sqlite3_stmt *stmt_login = nullptr;
 
-        if (sqlite3_prepare_v2(bd, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+        if (sqlite3_prepare_v2(bd, sql_log.c_str(), -1, &stmt_login, nullptr) != SQLITE_OK) {
         	std::cerr << "Error preparing statement to insert LOGIN : \n" << sqlite3_errmsg(bd) << std::endl;
-        	if (stmt) sqlite3_finalize(stmt);
+        	if (stmt_login) sqlite3_finalize(stmt_login);
         	return;
         }
-    	sqlite3_bind_text(stmt, 1, item.getEmail().c_str(), -1, SQLITE_TRANSIENT);
-    	sqlite3_bind_text(stmt, 2, item.getPassword().c_str(), -1, SQLITE_TRANSIENT);
+    	sqlite3_bind_text(stmt_login, 1, item.getEmail().c_str(), -1, SQLITE_TRANSIENT);
+    	sqlite3_bind_text(stmt_login, 2, item.getPassword().c_str(), -1, SQLITE_TRANSIENT);
 
-    	if (sqlite3_step(stmt) != SQLITE_DONE) {
+    	if (sqlite3_step(stmt_login) != SQLITE_DONE) {
     		std::cerr << "Error insert LOGIN : \n" << sqlite3_errmsg(bd) << std::endl;
-    		sqlite3_finalize(stmt);
+    		sqlite3_finalize(stmt_login);
+    		return;
+    	}
+    	sqlite3_finalize(stmt_login);
+
+    	const std::string sql_use = "INSERT INTO USE(email, service_id) values(?, ?)";
+    	sqlite3_stmt *stmt_use = nullptr;
+
+    	if (sqlite3_prepare_v2(bd, sql_log.c_str(), -1, &stmt_use, nullptr) != SQLITE_OK) {
+    		std::cerr << "Error preparing statement to insert USE : \n" << sqlite3_errmsg(bd) << std::endl;
+    		if (stmt_login) sqlite3_finalize(stmt_login);
     		return;
     	}
 
-    	std::cout << "inserted LOGIN" << std::endl;
-    	sqlite3_finalize(stmt);
+    	sqlite3_bind_text(stmt_use, 1, item.getPassword().c_str(), -1, SQLITE_TRANSIENT);
+		for (const model::Service &service: item.getServices()) {
+			sqlite3_bind_int(stmt_use, 2, service.id);
+			if (sqlite3_step(stmt_login) != SQLITE_DONE) {
+				std::cerr << "Error insert USE : \n" << sqlite3_errmsg(bd) << std::endl;
+				sqlite3_finalize(stmt_use);
+				return;
+			}
+		}
+
+    	std::cout << "inserted LOGIN and USE" << std::endl;
+    	sqlite3_finalize(stmt_use);
     }
 
     void IdentifiantDaoImpl::remove(const model::Identifiant<> &item) {
