@@ -3,7 +3,7 @@
 //
 
 #include "IdentifiantDaoImpl.h"
-
+#include "../model/Service.h"
 #include <iostream>
 #include <ostream>
 
@@ -12,8 +12,10 @@ namespace impl {
 
     std::vector<model::Identifiant<>> IdentifiantDaoImpl::findAll() {
         std::vector<model::Identifiant<>> identifiants;
+    	std::vector<model::Service> services;
         sqlite3 *bd = m_connector.getDB();
-        const std::string sql = "SELECT login_id, email, password FROM LOGIN;";
+        const std::string sql = "SELECT login_id, email, password, service_id, name "
+								"FROM LOGIN natural join USE natural join SERVICE;";
         sqlite3_stmt *stmt;
 
         int status = sqlite3_prepare_v3(bd, sql.c_str(), -1, SQLITE_PREPARE_PERSISTENT, &stmt, nullptr);
@@ -29,7 +31,13 @@ namespace impl {
             	reinterpret_cast<const char *>(sqlite3_column_text(stmt, 1)),
             	reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2)),
             	false);
-            identifiants.push_back(identifiant);
+
+        	model::Service service {
+        		sqlite3_column_int(stmt, 3),
+        		reinterpret_cast<const char *>(sqlite3_column_text(stmt, 4)),
+        	};
+        	identifiant.addService(dynamic_cast<const model::Service &&>(service));
+        	identifiants.push_back(identifiant);
         }
 
         sqlite3_finalize(stmt);
@@ -39,7 +47,9 @@ namespace impl {
     std::vector<model::Identifiant<>> IdentifiantDaoImpl::findByEmail(std::string &&email) {
         std::vector<model::Identifiant<>> identifiants;
         sqlite3 *bd = m_connector.getDB();
-        const std::string sql = "SELECT login_id, email, password FROM LOGIN where email LIKE ?;";
+    	const std::string sql = "SELECT login_id, email, password, service_id, name "
+								"FROM LOGIN natural join USE natural join SERVICE "
+								"where email LIKE ?;";
         sqlite3_stmt *stmt;
 
         int status = sqlite3_prepare_v2(bd, sql.c_str(), -1, &stmt, nullptr);
@@ -56,7 +66,13 @@ namespace impl {
             	reinterpret_cast<const char *>(sqlite3_column_text(stmt, 1)),
             	reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2)),
             	false);
-            identifiants.push_back(identifiant);
+
+        	model::Service service {
+        		sqlite3_column_int(stmt, 3),
+				reinterpret_cast<const char *>(sqlite3_column_text(stmt, 4)),
+			};
+        	identifiant.addService(dynamic_cast<const model::Service &&>(service));
+        	identifiants.push_back(identifiant);
         }
 
         sqlite3_finalize(stmt);
@@ -66,7 +82,9 @@ namespace impl {
     std::vector<model::Identifiant<>> IdentifiantDaoImpl::findByEmail(const std::string &email) {
         std::vector<model::Identifiant<>> identifiants;
         sqlite3 *bd = m_connector.getDB();
-        const std::string sql = "SELECT login_id, email, password FROM LOGIN where email LIKE ?;";
+    	const std::string sql = "SELECT login_id, email, password, service_id, name "
+								"FROM LOGIN natural join USE natural join SERVICE "
+								"where email LIKE ?;";
         sqlite3_stmt *stmt;
 
         int status = sqlite3_prepare_v2(bd, sql.c_str(), -1, &stmt, nullptr);
@@ -77,14 +95,20 @@ namespace impl {
         }
     	sqlite3_bind_text(stmt, 1, email.c_str(), -1, SQLITE_TRANSIENT);
 
-        while (sqlite3_step(stmt) == SQLITE_ROW) {
-        	model::Identifiant<> identifiant = model::Identifiant<>(
+    	while (sqlite3_step(stmt) == SQLITE_ROW) {
+    		model::Identifiant<> identifiant = model::Identifiant<>(
 				sqlite3_column_int(stmt, 0),
 				reinterpret_cast<const char *>(sqlite3_column_text(stmt, 1)),
 				reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2)),
 				false);
-            identifiants.push_back(identifiant);
-        }
+
+    		model::Service service {
+    			sqlite3_column_int(stmt, 3),
+				reinterpret_cast<const char *>(sqlite3_column_text(stmt, 4)),
+			};
+    		identifiant.addService(dynamic_cast<const model::Service &&>(service));
+    		identifiants.push_back(identifiant);
+    	}
 
         sqlite3_finalize(stmt);
         return identifiants;

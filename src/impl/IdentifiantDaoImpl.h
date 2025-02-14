@@ -4,7 +4,7 @@
 
 #ifndef IDENTIFIANTDAOIMPL_H
 #define IDENTIFIANTDAOIMPL_H
-
+#include <vector>
 #include "../bd/Connector.h"
 #include "../bd/IGenericDao.h"
 #include "../model/Identifiant.h"
