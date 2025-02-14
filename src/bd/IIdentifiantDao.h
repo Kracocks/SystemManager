@@ -12,12 +12,12 @@
 
 
 namespace bd{
-    class IIdentifiantDao: public IGenericDAO<model::Identifiant>{
+    class IIdentifiantDao: public IGenericDAO<model::Identifiant<>>{
     public:
         ~IIdentifiantDao() override;
 
-        virtual std::vector<model::Identifiant> findByEmail(const std::string &email) = 0;
-        virtual std::vector<model::Identifiant> findByEmail(std::string &&email) = 0;
+        virtual std::vector<model::Identifiant<>> findByEmail(const std::string &email) = 0;
+        virtual std::vector<model::Identifiant<>> findByEmail(std::string &&email) = 0;
     };
 }
 
