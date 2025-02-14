@@ -22,11 +22,10 @@ namespace impl {
         }
 
         while (sqlite3_step(stmt) == SQLITE_ROW) {
-        	// TODO : remove name of TokenGroup in model::TokenGroup and replace Identifiant : login by his id
             model::TokenGroup tokenGroup{
             	sqlite3_column_int(stmt, 0),
             	sqlite3_column_int(stmt, 1),
-            	sqlite3_column_text(stmt, 2)
+            	reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2))
             };
             tokenGroups.push_back(tokenGroup);
         }
@@ -52,7 +51,7 @@ namespace impl {
     		model::TokenGroup tokenGroup{
     			sqlite3_column_int(stmt, 0),
 				sqlite3_column_int(stmt, 1),
-				sqlite3_column_text(stmt, 2)
+				reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2))
 			};
     		tokenGroups.push_back(tokenGroup);
     	}
@@ -78,7 +77,7 @@ namespace impl {
     		model::TokenGroup tokenGroup{
     			sqlite3_column_int(stmt, 0),
 				sqlite3_column_int(stmt, 1),
-				sqlite3_column_text(stmt, 2)
+				reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2))
 			};
     		tokenGroups.push_back(tokenGroup);
     	}
