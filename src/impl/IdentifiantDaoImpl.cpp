@@ -134,19 +134,19 @@ namespace impl {
     	}
     	sqlite3_finalize(stmt_login);
 
-    	const std::string sql_use = "INSERT INTO USE(email, service_id) values(?, ?)";
+    	const std::string sql_use = "INSERT INTO USE(email, service_id) values(?, ?);";
     	sqlite3_stmt *stmt_use = nullptr;
 
     	if (sqlite3_prepare_v2(bd, sql_log.c_str(), -1, &stmt_use, nullptr) != SQLITE_OK) {
     		std::cerr << "Error preparing statement to insert USE : \n" << sqlite3_errmsg(bd) << std::endl;
-    		if (stmt_login) sqlite3_finalize(stmt_login);
+    		if (stmt_use) sqlite3_finalize(stmt_use);
     		return;
     	}
 
     	sqlite3_bind_text(stmt_use, 1, item.getPassword().c_str(), -1, SQLITE_TRANSIENT);
 		for (const model::Service &service: item.getServices()) {
 			sqlite3_bind_int(stmt_use, 2, service.id);
-			if (sqlite3_step(stmt_login) != SQLITE_DONE) {
+			if (sqlite3_step(stmt_use) != SQLITE_DONE) {
 				std::cerr << "Error insert USE : \n" << sqlite3_errmsg(bd) << std::endl;
 				sqlite3_finalize(stmt_use);
 				return;
@@ -155,6 +155,29 @@ namespace impl {
 
     	std::cout << "inserted LOGIN and USE" << std::endl;
     	sqlite3_finalize(stmt_use);
+    }
+
+	void IdentifiantDaoImpl::addService(const int &service_id, const model::Identifiant<> &item) {
+	    sqlite3 *bd = m_connector.getDB();
+    	const std::string sql {"INSERT INTO USE(email, service_id values(?, ?);"};
+    	sqlite3_stmt *stmt = nullptr;
+
+    	if (sqlite3_prepare_v2(bd, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+    		std::cerr << "Error preparing statement to insert USE : \n" << sqlite3_errmsg(bd) << std::endl;
+    		if (stmt) sqlite3_finalize(stmt);
+    		return;
+    	}
+
+    	sqlite3_bind_text(stmt, 1, item.getPassword().c_str(), -1, SQLITE_TRANSIENT);
+    	sqlite3_bind_int(stmt, 2, service_id);
+    	if (sqlite3_step(stmt) != SQLITE_DONE) {
+    		std::cerr << "Error insert USE : \n" << sqlite3_errmsg(bd) << std::endl;
+    		sqlite3_finalize(stmt);
+    		return;
+    	}
+
+    	sqlite3_finalize(stmt);
+    	std::cout << "added " << service_id << " to " << item.getId() << std::endl;
     }
 
     void IdentifiantDaoImpl::remove(const model::Identifiant<> &item) {
