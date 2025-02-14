@@ -10,7 +10,7 @@
 
 namespace impl {
 
-    class IdentifiantDaoImpl final : public bd::IIdentifiantDao {
+    class IdentifiantDaoImpl final : public bd::IGenericDAO<model::Identifiant<>> {
         bd::Connector &m_connector;
 
     public:
@@ -19,8 +19,8 @@ namespace impl {
         ~IdentifiantDaoImpl() override = default;
 
         std::vector<model::Identifiant<>> findAll() override;
-        std::vector<model::Identifiant<>> findByEmail(std::string &&email) override;
-        std::vector<model::Identifiant<>> findByEmail(const std::string &email) override;
+        std::vector<model::Identifiant<>> findByEmail(std::string &&email);
+        std::vector<model::Identifiant<>> findByEmail(const std::string &email);
         void insert(const model::Identifiant<> &item) override;
         void remove(const model::Identifiant<> &item) override;
     };

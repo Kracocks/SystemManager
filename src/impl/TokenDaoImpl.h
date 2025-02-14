@@ -10,7 +10,7 @@
 
 namespace impl {
 
-    class TokenDaoImpl final: public bd::IITokenDao {
+    class TokenDaoImpl final: public bd::IGenericDAO<model::Token> {
         bd::Connector &m_connector;
 
     public:
@@ -18,8 +18,8 @@ namespace impl {
         ~TokenDaoImpl() override = default;
 
         std::vector<model::Token> findAll() override;
-        std::vector<model::Token> findByValue(std::string &&value) override;
-        std::vector<model::Token> findByValue(const std::string &value) override;
+        std::vector<model::Token> findByValue(std::string &&value);
+        std::vector<model::Token> findByValue(const std::string &value);
         void insert(const model::Token &item) override;
         void remove(const model::Token &item) override;
     };

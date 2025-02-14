@@ -10,7 +10,7 @@
 
 namespace impl {
 
-    class TokenGroupDaoImpl final: public bd::ITokenGroupDAO{
+    class TokenGroupDaoImpl final: public bd::IGenericDAO<model::TokenGroup>{
         std::vector<model::TokenGroup> m_tokenGroups;
         bd::Connector &m_connector;
 
@@ -20,8 +20,8 @@ namespace impl {
         ~TokenGroupDaoImpl() override = default;
 
         std::vector<model::TokenGroup> findAll() override;
-        std::vector<model::TokenGroup> findByName(std::string &&name) override;
-        std::vector<model::TokenGroup> findByName(const std::string &name) override;
+        std::vector<model::TokenGroup> findByName(std::string &&name);
+        std::vector<model::TokenGroup> findByName(const std::string &name);
         void insert(const model::TokenGroup &item) override;
         void remove(const model::TokenGroup &item) override;
     };
