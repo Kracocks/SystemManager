@@ -10,9 +10,10 @@ create table if not exists SERVICE(
 );
 
 create table if not exists USE(
+    login_id integer not null,
     email text not null,
     service_id int not null,
-    foreign key (email) references LOGIN(email) on delete cascade,
+    foreign key (login_id) references LOGIN(login_id) on delete cascade,
     foreign key (service_id) references SERVICE(service_id) on delete cascade,
     unique (email, service_id)
 );
