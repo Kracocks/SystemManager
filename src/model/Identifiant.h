@@ -18,14 +18,12 @@ namespace model {
 	template <typename Int=int, typename Str=std::string, typename Ser=Service, typename Bool=bool, typename TGroup=TokenGroup>
     requires std::same_as<Int, int> &&
     		 std::same_as<Str, std::string> &&
-    		 std::same_as<Ser, Service> &&
     		 std::same_as<Bool, bool> &&
     		 std::same_as<TGroup, TokenGroup>
     class Identifiant {
         Int m_id;
         Str m_email;
         Str m_password;
-        std::vector<Ser> m_services;
 		std::vector<TGroup> m_token_groups;
 
     public:
@@ -42,7 +40,6 @@ namespace model {
             : m_id(std::forward<Int>(id)),
               m_email(std::forward<Str>(email)),
               m_password(std::forward<Str>(password)),
-              m_services({}),
 			  m_token_groups({}) {
 			if (shouldEncrypt) {
 				std::string encrypted {};
@@ -68,12 +65,6 @@ namespace model {
          * @return Password of the login
          */
         [[nodiscard]] Str getPassword() const {return m_password;}
-
-        /**
-         * Get the Services associated to the login
-         * @return Services associated to the login
-         */
-        [[nodiscard]] std::vector<Ser> getServices() const {return m_services; }
 
 		/**
 		 * Get the Token Groups associated to the login
@@ -104,23 +95,6 @@ namespace model {
          * @param password New password of the login
          */
         void setPassword(const Str &&password) {m_password = std::move(password);}
-
-        /**
-         * Add a new service to the login
-         * @param service New service to associate to the login
-         */
-        void addService(const Ser &&service) {m_services.push_back(service);}
-
-        /**
-         * Remove a service associated to the login
-         * @param service Service associated to the login
-         */
-        void removeService(const Ser &&service) {
-        	Ser it = std::find(m_services.begin(), m_services.end(), service);
-        	if (it != m_services.end()) {
-        		m_services.erase(it);
-        	}
-        }
 
 		/**
 		 * Add a new token group to the login
