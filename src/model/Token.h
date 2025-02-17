@@ -6,8 +6,6 @@
 #define TOKEN_H
 #include <string>
 
-#include "TokenGroup.h"
-
 namespace model {
 	struct Token {
 		int id;

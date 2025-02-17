@@ -176,7 +176,7 @@ namespace impl {
 
     void ServiceDaoImpl::insert(const model::Service &item) {
         sqlite3 *bd = m_connector.getDB();
-        const std::string sql = "INSERT INTO SERVICE(nom) values (?);";
+        const std::string sql = "INSERT INTO SERVICE(name) values (?);";
         sqlite3_stmt *stmt = nullptr;
 
         if (sqlite3_prepare_v2(bd, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
