@@ -150,6 +150,30 @@ namespace impl {
     	return services;
 	}
 
+	void ServiceDaoImpl::addLogin(const int &service_id, const model::Identifiant<> &item) {
+	    sqlite3 *bd = m_connector.getDB();
+    	const std::string sql {"INSERT INTO USE(login_id, email, service_id) values (?, ?, ?);"};
+    	sqlite3_stmt *stmt = nullptr;
+
+    	if (sqlite3_prepare_v2(bd, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+    		std::cerr << "Error preparing statement to insert LOGIN to SERVICE" << std::endl;
+    		sqlite3_finalize(stmt);
+    		return;
+    	}
+    	sqlite3_bind_int(stmt, 1, item.getId());
+    	sqlite3_bind_text(stmt, 2, item.getEmail().c_str(), -1, SQLITE_TRANSIENT);
+    	sqlite3_bind_int(stmt, 3, service_id);
+
+    	if (sqlite3_step(stmt) != SQLITE_DONE) {
+    		std::cerr << "Error inserting LOGIN to SERVICE" << std::endl;
+    		sqlite3_finalize(stmt);
+    		return;
+    	}
+
+    	std::cout << "inserted LOGIN to SERVICE " << service_id << std::endl;
+    	sqlite3_finalize(stmt);
+    }
+
     void ServiceDaoImpl::insert(const model::Service &item) {
         sqlite3 *bd = m_connector.getDB();
         const std::string sql = "INSERT INTO SERVICE(nom) values (?);";
@@ -178,19 +202,19 @@ namespace impl {
         sqlite3_stmt *stmt = nullptr;
 
         if (sqlite3_prepare_v2(bd, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
-        	std::cerr << "Error preparing statement to remove IDENTIFIANT" << std::endl;
+        	std::cerr << "Error preparing statement to remove SERVICE" << std::endl;
         	sqlite3_finalize(stmt);
         	return;
         }
     	sqlite3_bind_text(stmt, 1, std::to_string(item.id).c_str(), -1, SQLITE_STATIC);
 
     	if (sqlite3_step(stmt) != SQLITE_DONE) {
-    		std::cerr << "Error removing IDENTIFIANT" << std::endl;
+    		std::cerr << "Error removing SERVICE" << std::endl;
     		sqlite3_finalize(stmt);
     		return;
     	}
 
-    	std::cout << "removed IDENTIFIANT" << std::endl;
+    	std::cout << "removed SERVICE" << std::endl;
     	sqlite3_finalize(stmt);
     }
 

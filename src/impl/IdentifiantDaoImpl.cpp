@@ -14,8 +14,8 @@ namespace impl {
         std::vector<model::Identifiant<>> identifiants;
     	std::vector<model::Service> services;
         sqlite3 *bd = m_connector.getDB();
-        const std::string sql = "SELECT login_id, email, password, service_id, name "
-								"FROM LOGIN natural join USE natural join SERVICE;";
+        const std::string sql = "SELECT login_id, email, password "
+								"FROM LOGIN;";
         sqlite3_stmt *stmt;
 
         int status = sqlite3_prepare_v3(bd, sql.c_str(), -1, SQLITE_PREPARE_PERSISTENT, &stmt, nullptr);
@@ -31,12 +31,6 @@ namespace impl {
             	reinterpret_cast<const char *>(sqlite3_column_text(stmt, 1)),
             	reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2)),
             	false);
-
-        	model::Service service {
-        		sqlite3_column_int(stmt, 3),
-        		reinterpret_cast<const char *>(sqlite3_column_text(stmt, 4)),
-        	};
-        	identifiant.addService(dynamic_cast<const model::Service &&>(service));
         	identifiants.push_back(identifiant);
         }
 
@@ -47,8 +41,8 @@ namespace impl {
     std::vector<model::Identifiant<>> IdentifiantDaoImpl::findByEmail(std::string &&email) {
         std::vector<model::Identifiant<>> identifiants;
         sqlite3 *bd = m_connector.getDB();
-    	const std::string sql = "SELECT login_id, email, password, service_id, name "
-								"FROM LOGIN natural join USE natural join SERVICE "
+    	const std::string sql = "SELECT login_id, email, password "
+								"FROM LOGIN "
 								"where email LIKE ?;";
         sqlite3_stmt *stmt;
 
@@ -66,12 +60,6 @@ namespace impl {
             	reinterpret_cast<const char *>(sqlite3_column_text(stmt, 1)),
             	reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2)),
             	false);
-
-        	model::Service service {
-        		sqlite3_column_int(stmt, 3),
-				reinterpret_cast<const char *>(sqlite3_column_text(stmt, 4)),
-			};
-        	identifiant.addService(dynamic_cast<const model::Service &&>(service));
         	identifiants.push_back(identifiant);
         }
 
@@ -82,8 +70,8 @@ namespace impl {
     std::vector<model::Identifiant<>> IdentifiantDaoImpl::findByEmail(const std::string &email) {
         std::vector<model::Identifiant<>> identifiants;
         sqlite3 *bd = m_connector.getDB();
-    	const std::string sql = "SELECT login_id, email, password, service_id, name "
-								"FROM LOGIN natural join USE natural join SERVICE "
+    	const std::string sql = "SELECT login_id, email, password "
+								"FROM LOGIN "
 								"where email LIKE ?;";
         sqlite3_stmt *stmt;
 
@@ -101,12 +89,6 @@ namespace impl {
 				reinterpret_cast<const char *>(sqlite3_column_text(stmt, 1)),
 				reinterpret_cast<const char *>(sqlite3_column_text(stmt, 2)),
 				false);
-
-    		model::Service service {
-    			sqlite3_column_int(stmt, 3),
-				reinterpret_cast<const char *>(sqlite3_column_text(stmt, 4)),
-			};
-    		identifiant.addService(dynamic_cast<const model::Service &&>(service));
     		identifiants.push_back(identifiant);
     	}
 
@@ -133,33 +115,12 @@ namespace impl {
     		return;
     	}
     	sqlite3_finalize(stmt_login);
-
-    	const std::string sql_use = "INSERT INTO USE(email, service_id) values(?, ?);";
-    	sqlite3_stmt *stmt_use = nullptr;
-
-    	if (sqlite3_prepare_v2(bd, sql_log.c_str(), -1, &stmt_use, nullptr) != SQLITE_OK) {
-    		std::cerr << "Error preparing statement to insert USE : \n" << sqlite3_errmsg(bd) << std::endl;
-    		if (stmt_use) sqlite3_finalize(stmt_use);
-    		return;
-    	}
-
-    	sqlite3_bind_text(stmt_use, 1, item.getPassword().c_str(), -1, SQLITE_TRANSIENT);
-		for (const model::Service &service: item.getServices()) {
-			sqlite3_bind_int(stmt_use, 2, service.id);
-			if (sqlite3_step(stmt_use) != SQLITE_DONE) {
-				std::cerr << "Error insert USE : \n" << sqlite3_errmsg(bd) << std::endl;
-				sqlite3_finalize(stmt_use);
-				return;
-			}
-		}
-
-    	std::cout << "inserted LOGIN and USE" << std::endl;
-    	sqlite3_finalize(stmt_use);
+    	std::cout << "inserted LOGIN" << std::endl;
     }
 
 	void IdentifiantDaoImpl::addService(const int &service_id, const model::Identifiant<> &item) {
 	    sqlite3 *bd = m_connector.getDB();
-    	const std::string sql {"INSERT INTO USE(email, service_id values(?, ?);"};
+    	const std::string sql {"INSERT INTO USE(email, service_id) values(?, ?);"};
     	sqlite3_stmt *stmt = nullptr;
 
     	if (sqlite3_prepare_v2(bd, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
