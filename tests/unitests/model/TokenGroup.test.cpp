@@ -9,6 +9,7 @@
 #include "TokenGroup.h"
 
 #include "Utils.h"
+#include "Identifiant.h"
 
 TEST_CASE("Test the constructors of TokenGroup", "[tokengroup]") {
     const std::string tokenGroupName {"tokengroup"};

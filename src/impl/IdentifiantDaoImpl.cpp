@@ -52,7 +52,7 @@ namespace impl {
         	if (stmt) sqlite3_finalize(stmt);
             return identifiants;
         }
-    	sqlite3_bind_text(stmt, 1, email.c_str(), -1, SQLITE_TRANSIENT);
+    	sqlite3_bind_text(stmt, 1, email.c_str() + '%', -1, SQLITE_TRANSIENT);
 
         while (sqlite3_step(stmt) == SQLITE_ROW) {
             model::Identifiant<> identifiant = model::Identifiant<>(
@@ -81,7 +81,7 @@ namespace impl {
         	if (stmt) sqlite3_finalize(stmt);
             return identifiants;
         }
-    	sqlite3_bind_text(stmt, 1, email.c_str(), -1, SQLITE_TRANSIENT);
+    	sqlite3_bind_text(stmt, 1, email.c_str() + '%', -1, SQLITE_TRANSIENT);
 
     	while (sqlite3_step(stmt) == SQLITE_ROW) {
     		model::Identifiant<> identifiant = model::Identifiant<>(
@@ -143,7 +143,7 @@ namespace impl {
 
     void IdentifiantDaoImpl::remove(const model::Identifiant<> &item) {
         sqlite3 *bd = m_connector.getDB();
-        const std::string sql = "DELETE FROM LOGIN where id = ?";
+        const std::string sql = "DELETE FROM LOGIN where login_id = ?";
         sqlite3_stmt *stmt = nullptr;
 
         if (sqlite3_prepare_v2(bd, sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {

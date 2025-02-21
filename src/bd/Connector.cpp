@@ -3,6 +3,9 @@
 
 #include "Connector.h"
 
+#include <fstream>
+#include <sstream>
+
 namespace bd {
     // Protected
     Connector *Connector::m_connector = nullptr;
@@ -34,6 +37,21 @@ namespace bd {
             m_bd = nullptr;
             return;
         }
+
+    	std::ifstream schemaFile("data/creation.sql");
+    	if (schemaFile) {
+    		std::ostringstream buffer;
+    		buffer << schemaFile.rdbuf();
+    		std::string sql = buffer.str();
+
+    		res = sqlite3_exec(m_bd, sql.c_str(), nullptr, nullptr, &err_msg);
+    		if (res != SQLITE_OK) {
+    			std::cerr << "Erreur lors de l'exécution du fichier SQL : " << err_msg << std::endl;
+    			sqlite3_free(err_msg);
+    		}
+    	} else {
+    		std::cerr << "Impossible de charger le fichier schema.sql" << std::endl;
+    	}
     }
 
     // Public
@@ -54,7 +72,7 @@ namespace bd {
 
     Connector &Connector::getInstance() {
         if (m_connector == nullptr)
-            m_connector = new Connector("passwords.sqlite", std::getenv("DB_KEY"));
+            m_connector = new Connector("data/passwords.sqlite", std::getenv("DB_KEY"));
         return *m_connector;
     }
 } // bd
