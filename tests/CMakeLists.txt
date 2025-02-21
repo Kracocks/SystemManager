@@ -11,6 +11,8 @@ add_executable(test_runner ${TEST_FILES} catch_main.cpp)
 
 target_link_libraries(test_runner PRIVATE Catch2::Catch2WithMain model)
 target_link_libraries(test_runner PRIVATE Catch2::Catch2WithMain impl)
+target_link_libraries(test_runner PRIVATE Catch2::Catch2WithMain bd)
+target_link_libraries(test_runner PRIVATE sqlcipher)
 
 target_include_directories(test_runner PRIVATE ${CMAKE_SOURCE_DIR}/src)
 

@@ -5,14 +5,37 @@
 #include <catch2/catch_all.hpp>
 #include "impl/IdentifiantDaoImpl.h"
 
-TEST_CASE("Test the insert in the database", "[IdentifiantDaoImpl]") {
+TEST_CASE("Test the DAO of IdentifiantDaoImpl", "[identifiantdaoimpl]") {
+	impl::IdentifiantDaoImpl identifiantDao {};
 
-}
+	std::vector all_before_insert {identifiantDao.findAll()};
 
-TEST_CASE("Test the getters in the database", "[IdentifiantDaoImpl]") {
+	model::Identifiant<> login {0, "test@test.com", "1234", false};
+	identifiantDao.insert(login);
+	identifiantDao.insert(model::Identifiant<>
+		{0, "test@test.com", "1234", false});
+	identifiantDao.insert(model::Identifiant<>
+		{0, "truc@test.com", "1234", false});
 
-}
+	std::vector all_after_insert {identifiantDao.findAll()};
 
-TEST_CASE("Test the delete in the database", "[IdentifiantDaoImpl]") {
+	CHECK(identifiantDao.findByEmail("t").size() == 3);
+	CHECK(identifiantDao.findByEmail("te").size() == 2);
+	CHECK(identifiantDao.findByEmail("tr").size() == 1);
 
+	CHECK((all_before_insert.size() + 3) == all_after_insert.size());
+
+	CHECK((all_after_insert.size() - all_before_insert.size()) == 3);
+	identifiantDao.remove(all_after_insert[all_after_insert.size() - 1]);
+
+	all_after_insert = identifiantDao.findAll();
+	CHECK((all_after_insert.size() - all_before_insert.size()) == 2);
+	identifiantDao.remove(all_after_insert[all_after_insert.size() - 1]);
+
+	all_after_insert = identifiantDao.findAll();
+	CHECK((all_after_insert.size() - all_before_insert.size()) == 1);
+	identifiantDao.remove(all_after_insert[all_after_insert.size() - 1]);
+
+	all_after_insert = identifiantDao.findAll();
+	CHECK((all_after_insert.size() - all_before_insert.size()) == 0);
 }
