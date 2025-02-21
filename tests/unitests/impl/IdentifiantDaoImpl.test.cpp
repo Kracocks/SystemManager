@@ -10,18 +10,18 @@ TEST_CASE("Test the DAO of IdentifiantDaoImpl", "[identifiantdaoimpl]") {
 
 	std::vector all_before_insert {identifiantDao.findAll()};
 
-	model::Identifiant<> login {0, "test@test.com", "1234", false};
+	model::Identifiant<> login {0, "//test@test.com", "1234", false};
 	identifiantDao.insert(login);
 	identifiantDao.insert(model::Identifiant<>
-		{0, "test@test.com", "1234", false});
+		{0, "//test@test.com", "1234", false});
 	identifiantDao.insert(model::Identifiant<>
-		{0, "truc@test.com", "1234", false});
+		{0, "/:truc@test.com", "1234", false});
 
 	std::vector all_after_insert {identifiantDao.findAll()};
 
-	CHECK(identifiantDao.findByEmail("t").size() == 3);
-	CHECK(identifiantDao.findByEmail("te").size() == 2);
-	CHECK(identifiantDao.findByEmail("tr").size() == 1);
+	CHECK(identifiantDao.findByEmail("/").size() == 3);
+	CHECK(identifiantDao.findByEmail("//").size() == 2);
+	CHECK(identifiantDao.findByEmail("/:").size() == 1);
 
 	CHECK((all_before_insert.size() + 3) == all_after_insert.size());
 
