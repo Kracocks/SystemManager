@@ -16,22 +16,22 @@ namespace bd {
             return;
         }
 
-        // Ouvrir la base de données
+        // Open database
         int res = sqlite3_open(dbFilePath.c_str(), &m_bd);
         if (res != SQLITE_OK) {
-            std::cerr << "Erreur lors de l'ouverture de la base de données : "
+            std::cerr << "Error while opening database : "
                       << sqlite3_errmsg(m_bd) << std::endl;
             if (m_bd) sqlite3_close(m_bd);
             m_bd = nullptr;
             return;
         }
 
-        // Définir la clé pour SQLCipher
+        // Define database key
         std::string pragma_key = "PRAGMA key = '" + key + "';";
         char* err_msg = nullptr;
         res = sqlite3_exec(m_bd, pragma_key.c_str(), nullptr, nullptr, &err_msg);
         if (res != SQLITE_OK) {
-            std::cerr << "Erreur lors de l'application de la clé : " << err_msg << std::endl;
+            std::cerr << "Error when applying database key : " << err_msg << std::endl;
             sqlite3_free(err_msg);
             sqlite3_close(m_bd);
             m_bd = nullptr;
@@ -46,11 +46,11 @@ namespace bd {
 
     		res = sqlite3_exec(m_bd, sql.c_str(), nullptr, nullptr, &err_msg);
     		if (res != SQLITE_OK) {
-    			std::cerr << "Erreur lors de l'exécution du fichier SQL : " << err_msg << std::endl;
+    			std::cerr << "Error when executing SQL file : " << err_msg << std::endl;
     			sqlite3_free(err_msg);
     		}
     	} else {
-    		std::cerr << "Impossible de charger le fichier schema.sql" << std::endl;
+    		std::cerr << "Cannot load creation.sql file" << std::endl;
     	}
     }
 

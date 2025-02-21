@@ -1,3 +1,5 @@
+pragma foreign_keys = true;
+
 create table if not exists LOGIN(
     login_id integer primary key autoincrement,
     email text not null,
