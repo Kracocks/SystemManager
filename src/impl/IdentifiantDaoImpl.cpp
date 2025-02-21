@@ -52,7 +52,7 @@ namespace impl {
         	if (stmt) sqlite3_finalize(stmt);
             return identifiants;
         }
-    	sqlite3_bind_text(stmt, 1, email.c_str() + '%', -1, SQLITE_TRANSIENT);
+    	sqlite3_bind_text(stmt, 1, (email + '%').c_str(), -1, SQLITE_TRANSIENT);
 
         while (sqlite3_step(stmt) == SQLITE_ROW) {
             model::Identifiant<> identifiant = model::Identifiant<>(
@@ -81,7 +81,7 @@ namespace impl {
         	if (stmt) sqlite3_finalize(stmt);
             return identifiants;
         }
-    	sqlite3_bind_text(stmt, 1, email.c_str() + '%', -1, SQLITE_TRANSIENT);
+    	sqlite3_bind_text(stmt, 1, (email + '%').c_str(), -1, SQLITE_TRANSIENT);
 
     	while (sqlite3_step(stmt) == SQLITE_ROW) {
     		model::Identifiant<> identifiant = model::Identifiant<>(
